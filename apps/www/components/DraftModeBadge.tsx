@@ -18,12 +18,12 @@ export async function DraftModeBadge() {
         <span className="font-semibold">Draft Mode Active</span>
       </div>
 
-      <Link
+      <a
         href="/api/exit-preview"
         className=" text-black font-bold px-2.5 py-1 rounded text-sm hover:bg-black/20 transition-colors"
       >
         X
-      </Link>
+      </a>
     </div>
   );
 }
