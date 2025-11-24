@@ -1,4 +1,4 @@
-import { strapiClient } from "@/lib/strapi";
+import { fetchCollection } from "@/lib/strapi";
 import Link from "next/link";
 
 interface Post {
@@ -11,12 +11,11 @@ interface Post {
   publishedAt: string;
 }
 
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
 
 async function getPosts() {
   try {
-    const posts = strapiClient.collection("posts");
-    const data = await posts.find({
+    const data = await fetchCollection("posts", {
       sort: "createdAt:desc",
     });
     return data.data as Post[];
