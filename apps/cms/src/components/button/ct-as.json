@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_button_ct_as",
+  "info": {
+    "displayName": "CTAs"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string"
+    },
+    "href": {
+      "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "primary",
+        "secondary"
+      ]
+    }
+  },
+  "config": {}
+}

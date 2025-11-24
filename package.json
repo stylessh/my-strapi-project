@@ -7,6 +7,10 @@
     "build": "turbo build",
     "start": "turbo start",
     "lint": "turbo lint",
+    "dev:www": "turbo dev --filter=./apps/www",
+    "dev:cms": "turbo dev --filter=./apps/cms",
+    "build:www": "turbo build --filter=./apps/www",
+    "build:cms": "turbo build --filter=./apps/cms",
     "clean": "rm -rf apps/*/dist apps/*/.next apps/*/.turbo node_modules .turbo"
   },
   "devDependencies": {
