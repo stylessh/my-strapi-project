@@ -1,5 +1,8 @@
+packages:
+  - "apps/*"
+
 onlyBuiltDependencies:
-  - '@swc/core'
+  - "@swc/core"
   - better-sqlite3
   - core-js-pure
   - esbuild
