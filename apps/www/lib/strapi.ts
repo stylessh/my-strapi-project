@@ -29,7 +29,7 @@ export async function fetchCollection(
 // Draft-aware single type fetcher
 export async function fetchSingle(
   singleName: string,
-  params: BaseQueryParams = {},
+  params: Record<string, any> = {},
 ) {
   const { isEnabled: isDraftMode } = await draftMode();
 
