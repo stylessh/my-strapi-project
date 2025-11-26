@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "marketing_pages",
+  "info": {
+    "singularName": "marketing-page",
+    "pluralName": "marketing-pages",
+    "displayName": "Marketing Page",
+    "description": "Generic marketing pages with dynamic sections"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "seo": {
+      "type": "component",
+      "component": "shared.seo",
+      "repeatable": false
+    },
+    "content": {
+      "type": "dynamiczone",
+      "components": [
+        "sections.hero",
+        "sections.two-columns",
+        "sections.sticky-features",
+        "sections.features-grid",
+        "sections.cta-banner",
+        "sections.testimonials"
+      ]
+    }
+  }
+}

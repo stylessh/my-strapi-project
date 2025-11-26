@@ -1,24 +1,33 @@
 {
   "collectionName": "components_sections_heroes",
   "info": {
-    "displayName": "Hero"
+    "displayName": "Hero",
+    "description": "Main hero section with title, subtitle, image and CTAs"
   },
   "options": {},
   "attributes": {
-    "Title": {
+    "title": {
       "type": "string",
       "required": true
     },
-    "Subtitle": {
-      "type": "text",
-      "required": true
+    "subtitle": {
+      "type": "text"
     },
-    "CtaGroup": {
+    "image": {
+      "type": "media",
+      "allowedTypes": ["images"],
+      "multiple": false
+    },
+    "ctas": {
       "type": "component",
       "component": "button.ct-as",
       "repeatable": true,
       "max": 2
+    },
+    "layout": {
+      "type": "enumeration",
+      "enum": ["centered", "left-aligned", "image-right", "image-left"],
+      "default": "centered"
     }
-  },
-  "config": {}
+  }
 }

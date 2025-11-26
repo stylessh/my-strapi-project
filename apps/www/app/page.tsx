@@ -1,79 +1,89 @@
-import Image from "next/image";
-import { fetchSingle } from "@/lib/strapi";
+import { Metadata } from "next";
+import { getMarketingPageBySlug } from "@/lib/marketing-pages";
+import { SectionRenderer } from "@repo/ui/sections";
+import type { StrapiMedia } from "@repo/ui/types";
 
-interface HomeProps {
-  DefaultHero: {
-    Title: string;
-    Subtitle: string;
+const HOME_SLUG = "home";
 
-    CtaGroup: {
-      type: string;
-      text: string;
-      href: string;
-    }[];
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await getMarketingPageBySlug(HOME_SLUG);
+
+  if (!page) {
+    return {
+      title: "Home",
+    };
+  }
+
+  const strapiUrl =
+    process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
+
+  return {
+    title: page.seo?.metaTitle || page.title,
+    description: page.seo?.metaDescription,
+    keywords: page.seo?.keywords,
+    robots: page.seo?.metaRobots,
+    alternates: page.seo?.canonicalURL
+      ? { canonical: page.seo.canonicalURL }
+      : undefined,
+    openGraph: {
+      title: page.seo?.metaTitle || page.title,
+      description: page.seo?.metaDescription || undefined,
+      images: page.seo?.metaImage
+        ? [
+            {
+              url: page.seo.metaImage.url.startsWith("/")
+                ? `${strapiUrl}${page.seo.metaImage.url}`
+                : page.seo.metaImage.url,
+              width: page.seo.metaImage.width,
+              height: page.seo.metaImage.height,
+              alt: page.seo.metaImage.alternativeText || page.title,
+            },
+          ]
+        : undefined,
+    },
   };
 }
 
-export const dynamic = "force-dynamic";
-
-export default async function Home() {
-  const homepage = await fetchSingle("homepage", {
-    populate: {
-      Content: {
-        populate: {
-          DefaultHero: {
-            populate: {
-              CtaGroup: true,
-            },
-          },
-        },
-      },
-    },
-  });
-
-  const data = homepage.data.Content as HomeProps;
-  const hero = data.DefaultHero;
-  const ctaGroup = hero.CtaGroup;
+function renderImage(image: StrapiMedia) {
+  const strapiUrl =
+    process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
+  const imageUrl = image.url.startsWith("/")
+    ? `${strapiUrl}${image.url}`
+    : image.url;
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            {hero.Title}
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            {hero.Subtitle}
+    <img
+      src={imageUrl}
+      alt={image.alternativeText || ""}
+      width={image.width}
+      height={image.height}
+      className="w-full h-auto"
+    />
+  );
+}
+
+export default async function Home() {
+  const page = await getMarketingPageBySlug(HOME_SLUG);
+
+  if (!page) {
+    return (
+      <main className="flex min-h-screen items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Welcome</h1>
+          <p className="text-gray-600 dark:text-gray-400">
+            Create a Marketing Page with slug &quot;home&quot; in Strapi to
+            display content here.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          {ctaGroup?.map((cta, index) => (
-            <a
-              key={index}
-              className={
-                cta.type === "primary"
-                  ? "flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-                  : "flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-              }
-              href={cta.href || "#"}
-              target={cta.href?.startsWith("http") ? "_blank" : undefined}
-              rel={
-                cta.href?.startsWith("http") ? "noopener noreferrer" : undefined
-              }
-            >
-              {cta.text}
-            </a>
-          ))}
-        </div>
       </main>
-    </div>
+    );
+  }
+
+  return (
+    <main>
+      {page.content && page.content.length > 0 && (
+        <SectionRenderer sections={page.content} renderImage={renderImage} />
+      )}
+    </main>
   );
 }

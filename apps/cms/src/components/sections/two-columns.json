@@ -1,0 +1,40 @@
+{
+  "collectionName": "components_sections_two_columns",
+  "info": {
+    "displayName": "Two Columns",
+    "description": "Two column layout with text and media"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "content": {
+      "type": "richtext"
+    },
+    "media": {
+      "type": "media",
+      "allowedTypes": ["images", "videos"],
+      "multiple": false
+    },
+    "cta": {
+      "type": "component",
+      "component": "button.ct-as",
+      "repeatable": false
+    },
+    "mediaPosition": {
+      "type": "enumeration",
+      "enum": ["left", "right"],
+      "default": "right"
+    },
+    "backgroundColor": {
+      "type": "enumeration",
+      "enum": ["white", "gray", "primary", "dark"],
+      "default": "white"
+    }
+  }
+}

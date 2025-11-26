@@ -15,9 +15,12 @@ export async function POST(request: NextRequest) {
 
     const { model, event, entry } = body;
 
-    // TODO: add better logic to handle different models and events and revalidation.
-    if (model === "homepage") {
+    if (model === "marketing-page") {
       revalidatePath("/");
+
+      if (entry?.slug) {
+        revalidatePath(`/${entry.slug}`);
+      }
     }
 
     if (model === "post") {
@@ -27,10 +30,6 @@ export async function POST(request: NextRequest) {
       if (entry?.id) {
         revalidatePath(`/posts/${entry.id}`);
       }
-
-      revalidateTag("posts", {
-        expire: Date.now() + 1000 * 60 * 60 * 24 * 7, // 7 days
-      });
     }
 
     return NextResponse.json(

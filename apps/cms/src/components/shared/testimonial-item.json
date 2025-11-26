@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_shared_testimonial_items",
+  "info": {
+    "displayName": "Testimonial Item",
+    "description": "Individual testimonial with quote and author"
+  },
+  "options": {},
+  "attributes": {
+    "quote": {
+      "type": "text",
+      "required": true
+    },
+    "authorName": {
+      "type": "string",
+      "required": true
+    },
+    "authorTitle": {
+      "type": "string"
+    },
+    "authorCompany": {
+      "type": "string"
+    },
+    "authorImage": {
+      "type": "media",
+      "allowedTypes": ["images"],
+      "multiple": false
+    },
+    "rating": {
+      "type": "integer",
+      "min": 1,
+      "max": 5
+    }
+  }
+}

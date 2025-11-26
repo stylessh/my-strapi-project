@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_sections_testimonials",
+  "info": {
+    "displayName": "Testimonials",
+    "description": "Customer testimonials section"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "testimonials": {
+      "type": "component",
+      "component": "shared.testimonial-item",
+      "repeatable": true,
+      "min": 1,
+      "max": 10
+    },
+    "layout": {
+      "type": "enumeration",
+      "enum": ["grid", "carousel", "single"],
+      "default": "grid"
+    }
+  }
+}

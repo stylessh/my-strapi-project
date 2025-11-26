@@ -430,28 +430,71 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
-  collectionName: 'homepages';
+export interface ApiCompanyStatCompanyStat extends Struct.SingleTypeSchema {
+  collectionName: 'company_stats';
   info: {
-    displayName: 'Homepage';
-    pluralName: 'homepages';
-    singularName: 'homepage';
+    displayName: 'Company Stats';
+    pluralName: 'company-stats';
+    singularName: 'company-stat';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    Content: Schema.Attribute.Component<'pages.marketing-page', false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    databases_created: Schema.Attribute.BigInteger;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::company-stat.company-stat'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users_signup: Schema.Attribute.BigInteger;
+  };
+}
+
+export interface ApiMarketingPageMarketingPage
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'marketing_pages';
+  info: {
+    description: 'Generic marketing pages with dynamic sections';
+    displayName: 'Marketing Page';
+    pluralName: 'marketing-pages';
+    singularName: 'marketing-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    content: Schema.Attribute.DynamicZone<
+      [
+        'sections.hero',
+        'sections.two-columns',
+        'sections.sticky-features',
+        'sections.features-grid',
+        'sections.cta-banner',
+        'sections.testimonials',
+      ]
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::homepage.homepage'
+      'api::marketing-page.marketing-page'
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -461,7 +504,7 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
 export interface ApiPostPost extends Struct.CollectionTypeSchema {
   collectionName: 'posts';
   info: {
-    displayName: 'Post';
+    displayName: 'Blog Post';
     pluralName: 'posts';
     singularName: 'post';
   };
@@ -995,7 +1038,8 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
-      'api::homepage.homepage': ApiHomepageHomepage;
+      'api::company-stat.company-stat': ApiCompanyStatCompanyStat;
+      'api::marketing-page.marketing-page': ApiMarketingPageMarketingPage;
       'api::post.post': ApiPostPost;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

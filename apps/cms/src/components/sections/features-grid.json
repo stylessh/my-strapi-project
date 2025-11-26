@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_sections_features_grids",
+  "info": {
+    "displayName": "Features Grid",
+    "description": "Grid layout for features or benefits"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "columns": {
+      "type": "enumeration",
+      "enum": ["2", "3", "4"],
+      "default": "3"
+    },
+    "features": {
+      "type": "component",
+      "component": "shared.feature-item",
+      "repeatable": true,
+      "min": 1,
+      "max": 12
+    },
+    "backgroundColor": {
+      "type": "enumeration",
+      "enum": ["white", "gray", "primary", "dark"],
+      "default": "white"
+    }
+  }
+}

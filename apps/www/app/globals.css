@@ -1,26 +1,42 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Scan UI package for Tailwind classes */
+@source "../node_modules/@repo/ui/src";
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+    /* Neutral palette */
+    --color-background: var(--color-neutral-50);
+    --color-foreground: var(--color-neutral-900);
+    --color-muted: var(--color-neutral-500);
+    --color-border: var(--color-neutral-200);
+    --color-card: var(--color-white);
+    --color-card-foreground: var(--color-neutral-900);
+
+    /* Accent - Emerald */
+    --color-accent: var(--color-emerald-600);
+    --color-accent-hover: var(--color-emerald-700);
+    --color-accent-light: var(--color-emerald-50);
+    --color-accent-foreground: var(--color-white);
+
+    /* Fonts */
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    @theme inline {
+        --color-background: var(--color-neutral-950);
+        --color-foreground: var(--color-neutral-50);
+        --color-muted: var(--color-neutral-400);
+        --color-border: var(--color-neutral-800);
+        --color-card: var(--color-neutral-900);
+        --color-card-foreground: var(--color-neutral-50);
+        --color-accent-light: var(--color-emerald-950);
+    }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans), system-ui, sans-serif;
 }

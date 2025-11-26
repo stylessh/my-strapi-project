@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_sections_cta_banners",
+  "info": {
+    "displayName": "CTA Banner",
+    "description": "Call-to-action banner section"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "ctas": {
+      "type": "component",
+      "component": "button.ct-as",
+      "repeatable": true,
+      "max": 2
+    },
+    "backgroundImage": {
+      "type": "media",
+      "allowedTypes": ["images"],
+      "multiple": false
+    },
+    "style": {
+      "type": "enumeration",
+      "enum": ["simple", "gradient", "image-background"],
+      "default": "simple"
+    }
+  }
+}

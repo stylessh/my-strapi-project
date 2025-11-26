@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_sections_sticky_features",
+  "info": {
+    "displayName": "Sticky Features",
+    "description": "Features with sticky scrolling effect"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "features": {
+      "type": "component",
+      "component": "shared.feature-item",
+      "repeatable": true,
+      "min": 1,
+      "max": 6
+    }
+  }
+}

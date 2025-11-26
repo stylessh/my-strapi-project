@@ -41,3 +41,12 @@ export async function fetchSingle(
   const single = strapiClient.single(singleName);
   return await single.find(queryParams);
 }
+
+// Build-safe collection fetcher (for generateStaticParams)
+export async function fetchCollectionStatic(
+  collectionName: string,
+  params: Record<string, any> = {},
+) {
+  const collection = strapiClient.collection(collectionName);
+  return await collection.find(params);
+}

@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "company_stats",
+  "info": {
+    "singularName": "company-stat",
+    "pluralName": "company-stats",
+    "displayName": "Company Stats"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "databases_created": {
+      "type": "biginteger"
+    },
+    "users_signup": {
+      "type": "biginteger"
+    }
+  }
+}
